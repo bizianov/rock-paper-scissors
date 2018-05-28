@@ -3,12 +3,12 @@ package model;
 public class Turn {
 
     private Move serverMove;
-    private Move userMove;
+    private Move playerMove;
     private Result result;
 
-    public Turn(Move serverMove, Move userMove) {
+    public Turn(Move serverMove, Move playerMove) {
         this.serverMove = serverMove;
-        this.userMove = userMove;
+        this.playerMove = playerMove;
     }
 
 
@@ -16,8 +16,8 @@ public class Turn {
         return serverMove;
     }
 
-    public Move getUserMove() {
-        return userMove;
+    public Move getPlayerMove() {
+        return playerMove;
     }
 
     public Result getResult() {
