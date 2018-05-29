@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Describes one round of play which consists of player move, server move and result.
+ * Move is described in {@link model.Move}
+ * Result is described in {@link model.Result}
+ */
 public class Turn {
 
     private Move serverMove;

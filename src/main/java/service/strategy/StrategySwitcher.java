@@ -3,6 +3,7 @@ package service.strategy;
 import model.Result;
 import model.Turn;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -52,8 +53,8 @@ public class StrategySwitcher {
                 }
             }
 
-            if (resultMap.getOrDefault(ScientificMoveStrategy.class, 0) >=
-                    resultMap.getOrDefault(ScientificRevertedMoveStrategy.class, 0)) {
+            Class clazz = Collections.max(resultMap.entrySet(), Map.Entry.comparingByValue()).getKey();
+            if (clazz == ScientificMoveStrategy.class) {
                 switchStrategy(scientificMoveStrategy);
             } else {
                 switchStrategy(scientificRevertedMoveStrategy);
