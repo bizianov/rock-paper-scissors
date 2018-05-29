@@ -8,6 +8,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class is containing a pre-defined map with LOSS-WIN combination: for each key move value is win move.
+ * The only determine method is evaluating the result of current round (turn).
+ */
 public class ResultDeterminant {
 
     static {

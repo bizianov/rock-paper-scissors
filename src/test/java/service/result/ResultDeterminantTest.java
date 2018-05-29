@@ -4,7 +4,6 @@ import model.Move;
 import model.Result;
 import model.Turn;
 import org.junit.Test;
-import service.result.ResultDeterminant;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

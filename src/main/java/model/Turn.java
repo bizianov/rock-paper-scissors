@@ -11,6 +11,11 @@ public class Turn {
         this.playerMove = playerMove;
     }
 
+    public Turn(Move serverMove, Move playerMove, Result result) {
+        this.serverMove = serverMove;
+        this.playerMove = playerMove;
+        this.result = result;
+    }
 
     public Move getServerMove() {
         return serverMove;
