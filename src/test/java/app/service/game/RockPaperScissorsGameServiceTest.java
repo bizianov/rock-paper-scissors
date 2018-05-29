@@ -3,36 +3,49 @@ package app.service.game;
 import app.model.Move;
 import app.model.Result;
 import app.model.Score;
-import org.junit.Before;
-import org.junit.Test;
-import app.service.history.GameHistoryHolder;
+import app.repository.TurnRepository;
 import app.service.result.ResultDeterminant;
 import app.service.strategy.ScientificMoveStrategy;
 import app.service.strategy.ScientificRevertedMoveStrategy;
 import app.service.strategy.StrategySwitcher;
 import app.service.strategy.draw.DrawMoveResolver;
 import app.service.strategy.draw.StatisticDrawMoveResolver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.persistence.EntityManager;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class RockPaperScissorsGameServiceTest {
 
-    private RockPaperScissorsGameService gameService;
+    @Autowired
+    private GameService gameService;
+    @Autowired
+    private TurnRepository turnRepository;
 
     @Before
     public void init() {
-        DrawMoveResolver drawMoveResolver = new StatisticDrawMoveResolver();
-        StrategySwitcher strategySwitcher = new StrategySwitcher(new ScientificMoveStrategy(drawMoveResolver),
-                new ScientificRevertedMoveStrategy(drawMoveResolver));
-        strategySwitcher.setNumberOfTurnsToAnalyze(20);
-        gameService = new RockPaperScissorsGameService(strategySwitcher,
-                new GameHistoryHolder(), new ResultDeterminant());
+        turnRepository.deleteAll();
+        gameService.startGame();
+    }
+
+    @After
+    public void shutdown() {
+        gameService.stopGame();
     }
 
     @Test
     public void startGame() {
-        gameService.startGame();
         Score score = gameService.stopGame();
         assertThat(score.getServerScore(), equalTo(0));
         assertThat(score.getPlayerScore(), equalTo(0));
@@ -40,7 +53,6 @@ public class RockPaperScissorsGameServiceTest {
 
     @Test
     public void firstMoveIsPaper() {
-        gameService.startGame();
         Result result = gameService.nextTurn(Move.SCISSORS);
         Score score = gameService.stopGame();
         assertThat(result, equalTo(Result.WIN));
@@ -54,7 +66,6 @@ public class RockPaperScissorsGameServiceTest {
      */
     @Test
     public void basicPlayer() {
-        gameService.startGame();
         gameService.nextTurn(Move.SCISSORS);
         gameService.nextTurn(Move.SCISSORS);
         gameService.nextTurn(Move.PAPER);
@@ -70,7 +81,6 @@ public class RockPaperScissorsGameServiceTest {
      */
     @Test
     public void advancedPlayer() {
-        gameService.startGame();
         gameService.nextTurn(Move.ROCK);
         gameService.nextTurn(Move.PAPER);
         gameService.nextTurn(Move.ROCK);

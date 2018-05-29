@@ -61,7 +61,11 @@ public class StatisticDrawMoveResolver implements DrawMoveResolver {
     }
 
     private Result extractTopMove(Map<Result, Integer> resultMap) {
-        return Collections.max(resultMap.entrySet(), Map.Entry.comparingByValue()).getKey();
+        if (!resultMap.isEmpty()) {
+            return Collections.max(resultMap.entrySet(), Map.Entry.comparingByValue()).getKey();
+        } else {
+            return Result.WIN;
+        }
     }
 
 
