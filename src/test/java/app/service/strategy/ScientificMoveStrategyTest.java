@@ -21,7 +21,7 @@ public class ScientificMoveStrategyTest {
      */
     @Test
     public void playerLostOnLastTurn() {
-        Turn lastTurn = new Turn(Move.PAPER, Move.ROCK);
+        Turn lastTurn = new Turn("ID-12345678", Move.PAPER, Move.ROCK);
         lastTurn.setResult(Result.LOSS);
         LinkedList<Turn> previousTurns = new LinkedList<>();
         previousTurns.add(lastTurn);
@@ -35,7 +35,7 @@ public class ScientificMoveStrategyTest {
      */
     @Test
     public void playerWonOnLastTurn() {
-        Turn lastTurn = new Turn(Move.SCISSORS, Move.ROCK);
+        Turn lastTurn = new Turn("ID-12345678", Move.SCISSORS, Move.ROCK);
         lastTurn.setResult(Result.WIN);
         LinkedList<Turn> previousTurns = new LinkedList<>();
         previousTurns.add(lastTurn);

@@ -17,9 +17,9 @@ public class StatisticDrawMoveResolverTest {
     @Test
     public void playerUsesTheSameMoveAfterDraw() {
         LinkedList<Turn> previousTurns = new LinkedList<>();
-        previousTurns.add(new Turn(Move.PAPER, Move.PAPER, Result.DRAW));
-        previousTurns.add(new Turn(Move.ROCK, Move.PAPER, Result.WIN));
-        previousTurns.add(new Turn(Move.SCISSORS, Move.SCISSORS, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345678", Move.PAPER, Move.PAPER, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345679", Move.ROCK, Move.PAPER, Result.WIN));
+        previousTurns.add(new Turn("ID-12345670", Move.SCISSORS, Move.SCISSORS, Result.DRAW));
         Move move = statisticDrawMoveResolver.moveAfterDraw(previousTurns);
         assertThat(move, equalTo(Move.ROCK));
     }
@@ -27,9 +27,9 @@ public class StatisticDrawMoveResolverTest {
     @Test
     public void playerUsesWinMoveToOneUsedInDrawRound() {
         LinkedList<Turn> previousTurns = new LinkedList<>();
-        previousTurns.add(new Turn(Move.PAPER, Move.PAPER, Result.DRAW));
-        previousTurns.add(new Turn(Move.ROCK, Move.SCISSORS, Result.LOSS));
-        previousTurns.add(new Turn(Move.ROCK, Move.ROCK, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345678", Move.PAPER, Move.PAPER, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345679", Move.ROCK, Move.SCISSORS, Result.LOSS));
+        previousTurns.add(new Turn("ID-12345670", Move.ROCK, Move.ROCK, Result.DRAW));
         Move move = statisticDrawMoveResolver.moveAfterDraw(previousTurns);
         assertThat(move, equalTo(Move.SCISSORS));
     }
@@ -37,9 +37,9 @@ public class StatisticDrawMoveResolverTest {
     @Test
     public void playerUsesLossMoveToOneUsedInDrawRound() {
         LinkedList<Turn> previousTurns = new LinkedList<>();
-        previousTurns.add(new Turn(Move.PAPER, Move.PAPER, Result.DRAW));
-        previousTurns.add(new Turn(Move.SCISSORS, Move.ROCK, Result.WIN));
-        previousTurns.add(new Turn(Move.PAPER, Move.PAPER, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345678", Move.PAPER, Move.PAPER, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345679", Move.SCISSORS, Move.ROCK, Result.WIN));
+        previousTurns.add(new Turn("ID-12345670", Move.PAPER, Move.PAPER, Result.DRAW));
         Move move = statisticDrawMoveResolver.moveAfterDraw(previousTurns);
         assertThat(move, equalTo(Move.PAPER));
     }

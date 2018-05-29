@@ -1,0 +1,26 @@
+version: "3.0"
+
+services:
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "game"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  backend:
+    build:
+      context: /home/viacheslav/dev/java/rock-paper-scissors
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    links:
+      - db
+    restart: always
+
+volumes:
+  mysql_data:

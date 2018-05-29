@@ -3,15 +3,14 @@ package app.service.game;
 import app.model.Move;
 import app.model.Result;
 import app.model.Score;
-import org.junit.Before;
-import org.junit.Test;
-import app.service.history.GameHistoryHolder;
 import app.service.result.ResultDeterminant;
 import app.service.strategy.ScientificMoveStrategy;
 import app.service.strategy.ScientificRevertedMoveStrategy;
 import app.service.strategy.StrategySwitcher;
 import app.service.strategy.draw.DrawMoveResolver;
 import app.service.strategy.draw.StatisticDrawMoveResolver;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,8 +25,8 @@ public class RockPaperScissorsGameServiceTest {
         StrategySwitcher strategySwitcher = new StrategySwitcher(new ScientificMoveStrategy(drawMoveResolver),
                 new ScientificRevertedMoveStrategy(drawMoveResolver));
         strategySwitcher.setNumberOfTurnsToAnalyze(20);
-        gameService = new RockPaperScissorsGameService(strategySwitcher,
-                new GameHistoryHolder(), new ResultDeterminant());
+        gameService = new RockPaperScissorsGameService(null, strategySwitcher,
+                new ResultDeterminant());
     }
 
     @Test

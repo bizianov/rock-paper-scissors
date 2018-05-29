@@ -4,27 +4,31 @@ import app.model.Move;
 import app.model.Result;
 import app.model.Score;
 import app.model.Turn;
-import app.service.history.HistoryHolder;
+import app.repository.TurnRepository;
 import app.service.result.ResultDeterminant;
 import app.service.strategy.MoveStrategy;
 import app.service.strategy.StrategySwitcher;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
+import java.util.UUID;
 
 @Service
 public class RockPaperScissorsGameService implements GameService {
 
+    private final TurnRepository turnRepository;
     private final StrategySwitcher strategySwitcher;
-    private final HistoryHolder historyHolder;
     private final ResultDeterminant resultDeterminant;
     private Score score;
 
     @Autowired
-    public RockPaperScissorsGameService(StrategySwitcher strategySwitcher,
-                                        HistoryHolder historyHolder,
+    public RockPaperScissorsGameService(TurnRepository turnRepository,
+                                        StrategySwitcher strategySwitcher,
                                         ResultDeterminant resultDeterminant) {
+        this.turnRepository = turnRepository;
         this.strategySwitcher = strategySwitcher;
-        this.historyHolder = historyHolder;
         this.resultDeterminant = resultDeterminant;
     }
 
@@ -36,9 +40,10 @@ public class RockPaperScissorsGameService implements GameService {
 
     @Override
     public Result nextTurn(Move playerMove) {
-        MoveStrategy moveStrategy = strategySwitcher.getCurrentMoveStrategy(historyHolder.getPreviousTurns());
-        Move serverMove = moveStrategy.nextMove(historyHolder.getPreviousTurns());
-        Turn turn = new Turn(serverMove, playerMove);
+        LinkedList<Turn> previousTurns = Lists.newLinkedList(turnRepository.findAll());
+        MoveStrategy moveStrategy = strategySwitcher.getCurrentMoveStrategy(previousTurns);
+        Move serverMove = moveStrategy.nextMove(previousTurns);
+        Turn turn = new Turn(UUID.randomUUID().toString(), serverMove, playerMove);
         return processTurn(turn);
     }
 
@@ -51,7 +56,7 @@ public class RockPaperScissorsGameService implements GameService {
         if (result == Result.LOSS) {
             score.serverScored();
         }
-        historyHolder.addTurn(turn);
+        turnRepository.save(turn);
         return result;
     }
 

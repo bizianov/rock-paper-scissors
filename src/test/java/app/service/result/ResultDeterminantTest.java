@@ -14,21 +14,21 @@ public class ResultDeterminantTest {
 
     @Test
     public void resultIsDrawIfMovesAreSame() {
-        Turn turn = new Turn(Move.PAPER, Move.PAPER);
+        Turn turn = new Turn("ID-12345678", Move.PAPER, Move.PAPER);
         Result result = resultDeterminant.determine(turn);
         assertThat(result, equalTo(Result.DRAW));
     }
 
     @Test
     public void userWinIfHasBetterMove() {
-        Turn turn = new Turn(Move.PAPER, Move.SCISSORS);
+        Turn turn = new Turn("ID-12345678", Move.PAPER, Move.SCISSORS);
         Result result = resultDeterminant.determine(turn);
         assertThat(result, equalTo(Result.WIN));
     }
 
     @Test
     public void userLossIfServerHasBetterMove() {
-        Turn turn = new Turn(Move.ROCK, Move.SCISSORS);
+        Turn turn = new Turn("ID-12345678", Move.ROCK, Move.SCISSORS);
         Result result = resultDeterminant.determine(turn);
         assertThat(result, equalTo(Result.LOSS));
     }

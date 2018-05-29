@@ -1,0 +1,1 @@
+INSERT INTO turns (id, server_move, player_move, result) VALUES ('ID-12345678', 'PAPER', 'ROCK', 'LOSS');

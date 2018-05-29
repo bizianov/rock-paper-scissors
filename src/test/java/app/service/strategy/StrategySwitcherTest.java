@@ -28,8 +28,8 @@ public class StrategySwitcherTest {
     @Test
     public void scientificMoveStrategyAfterLoss() {
         LinkedList<Turn> previousTurns = new LinkedList<>();
-        previousTurns.add(new Turn(Move.PAPER, Move.ROCK, Result.LOSS));
-        previousTurns.add(new Turn(Move.ROCK, Move.SCISSORS, Result.LOSS));
+        previousTurns.add(new Turn("ID-12345678", Move.PAPER, Move.ROCK, Result.LOSS));
+        previousTurns.add(new Turn("ID-12345679", Move.ROCK, Move.SCISSORS, Result.LOSS));
         MoveStrategy moveStrategy = strategySwitcher.getCurrentMoveStrategy(previousTurns);
         assertThat(moveStrategy.getClass(), equalTo(ScientificMoveStrategy.class));
     }
@@ -37,8 +37,8 @@ public class StrategySwitcherTest {
     @Test
     public void scientificMoveStrategyAfterWin() {
         LinkedList<Turn> previousTurns = new LinkedList<>();
-        previousTurns.add(new Turn(Move.ROCK, Move.PAPER, Result.WIN));
-        previousTurns.add(new Turn(Move.SCISSORS, Move.PAPER, Result.LOSS));
+        previousTurns.add(new Turn("ID-12345678", Move.ROCK, Move.PAPER, Result.WIN));
+        previousTurns.add(new Turn("ID-12345679", Move.SCISSORS, Move.PAPER, Result.LOSS));
         MoveStrategy moveStrategy = strategySwitcher.getCurrentMoveStrategy(previousTurns);
         assertThat(moveStrategy.getClass(), equalTo(ScientificMoveStrategy.class));
     }
@@ -46,8 +46,8 @@ public class StrategySwitcherTest {
     @Test
     public void scientificRevertedMoveStrategyAfterLoss() {
         LinkedList<Turn> previousTurns = new LinkedList<>();
-        previousTurns.add(new Turn(Move.PAPER, Move.ROCK, Result.LOSS));
-        previousTurns.add(new Turn(Move.PAPER, Move.PAPER, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345678", Move.PAPER, Move.ROCK, Result.LOSS));
+        previousTurns.add(new Turn("ID-12345679", Move.PAPER, Move.PAPER, Result.DRAW));
         MoveStrategy moveStrategy = strategySwitcher.getCurrentMoveStrategy(previousTurns);
         assertThat(moveStrategy.getClass(), equalTo(ScientificRevertedMoveStrategy.class));
     }
@@ -55,8 +55,8 @@ public class StrategySwitcherTest {
     @Test
     public void scientificRevertedMoveStrategyAfterWin() {
         LinkedList<Turn> previousTurns = new LinkedList<>();
-        previousTurns.add(new Turn(Move.ROCK, Move.PAPER, Result.WIN));
-        previousTurns.add(new Turn(Move.ROCK, Move.ROCK, Result.DRAW));
+        previousTurns.add(new Turn("ID-12345678", Move.ROCK, Move.PAPER, Result.WIN));
+        previousTurns.add(new Turn("ID-12345679", Move.ROCK, Move.ROCK, Result.DRAW));
         MoveStrategy moveStrategy = strategySwitcher.getCurrentMoveStrategy(previousTurns);
         assertThat(moveStrategy.getClass(), equalTo(ScientificRevertedMoveStrategy.class));
     }
