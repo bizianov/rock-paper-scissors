@@ -25,6 +25,7 @@ public class RockPaperScissorsGameServiceTest {
         DrawMoveResolver drawMoveResolver = new StatisticDrawMoveResolver();
         StrategySwitcher strategySwitcher = new StrategySwitcher(new ScientificMoveStrategy(drawMoveResolver),
                 new ScientificRevertedMoveStrategy(drawMoveResolver));
+        strategySwitcher.setNumberOfTurnsToAnalyze(20);
         gameService = new RockPaperScissorsGameService(strategySwitcher,
                 new GameHistoryHolder(), new ResultDeterminant());
     }

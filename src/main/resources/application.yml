@@ -1,0 +1,3 @@
+game:
+  strategy:
+    numberOfTurnsToAnalyze: 20

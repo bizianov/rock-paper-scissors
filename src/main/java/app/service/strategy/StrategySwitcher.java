@@ -3,6 +3,7 @@ package app.service.strategy;
 import app.model.Result;
 import app.model.Turn;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -18,9 +19,10 @@ import static app.service.result.ResultDeterminant.winCombinations;
  * to activate to play most efficiently with an opponent.
  */
 @Component
+@ConfigurationProperties(prefix = "game.strategy")
 public class StrategySwitcher {
 
-    private static final Integer NUMBER_OF_TURNS_TO_ANALYZE = 20;
+    private Integer numberOfTurnsToAnalyze;
 
     private final ScientificMoveStrategy scientificMoveStrategy;
     private final ScientificRevertedMoveStrategy scientificRevertedMoveStrategy;
@@ -69,12 +71,12 @@ public class StrategySwitcher {
     }
 
     private LinkedList<Turn> lastTopTurns(LinkedList<Turn> previousTurns) {
-        if (previousTurns.size() < NUMBER_OF_TURNS_TO_ANALYZE) {
+        if (previousTurns.size() < numberOfTurnsToAnalyze) {
             return previousTurns;
         }
         return new LinkedList<>(
                 previousTurns.stream()
-                        .skip(previousTurns.size() - NUMBER_OF_TURNS_TO_ANALYZE)
+                        .skip(previousTurns.size() - numberOfTurnsToAnalyze)
                         .collect(toList()));
     }
 
@@ -87,5 +89,9 @@ public class StrategySwitcher {
         return (turn1.getResult() == Result.WIN && turn1.getPlayerMove() != turn2.getPlayerMove()) ||
                 (turn1.getResult() == Result.LOSS && turn2.getPlayerMove() ==
                         winCombinations.get(winCombinations.get(winCombinations.get(turn1.getServerMove()))));
+    }
+
+    public void setNumberOfTurnsToAnalyze(Integer numberOfTurnsToAnalyze) {
+        this.numberOfTurnsToAnalyze = numberOfTurnsToAnalyze;
     }
 }

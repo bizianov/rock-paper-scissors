@@ -22,6 +22,7 @@ public class StrategySwitcherTest {
         DrawMoveResolver drawMoveResolver = new StatisticDrawMoveResolver();
         strategySwitcher = new StrategySwitcher(new ScientificMoveStrategy(drawMoveResolver),
                 new ScientificRevertedMoveStrategy(drawMoveResolver));
+        strategySwitcher.setNumberOfTurnsToAnalyze(20);
     }
 
     @Test
