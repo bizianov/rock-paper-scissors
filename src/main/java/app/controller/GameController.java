@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController(value = "/game")
 public class GameController {
 
     private final GameService gameService;
@@ -20,17 +20,17 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping(value = "/game/new")
+    @GetMapping(value = "/new")
     public ResponseEntity<Score> startGame() {
         return ResponseEntity.ok(gameService.startGame());
     }
 
-    @GetMapping(value = "/game/turn/{move}")
+    @GetMapping(value = "/turn/{move}")
     public ResponseEntity<Result> nextTurn(@PathVariable("move") String moveName) {
         return ResponseEntity.ok(gameService.nextTurn(Move.valueOf(moveName.toUpperCase())));
     }
 
-    @GetMapping(value = "/game/stop")
+    @GetMapping(value = "/stop")
     public ResponseEntity<Score> stopGame() {
         return ResponseEntity.ok(gameService.stopGame());
     }
