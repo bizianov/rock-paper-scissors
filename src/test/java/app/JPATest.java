@@ -30,8 +30,10 @@ public class JPATest {
 
     @Before
     public void init() {
-        Turn turn = new Turn("ID-1234567890", Move.SCISSORS, Move.SCISSORS, Result.DRAW);
-        testEntityManager.persist(turn);
+        Turn turn1 = new Turn("ID-1234567890", Move.SCISSORS, Move.SCISSORS, Result.DRAW);
+        Turn turn2 = new Turn("ID-123456789", Move.SCISSORS, Move.SCISSORS, Result.DRAW);
+        testEntityManager.persist(turn1);
+        testEntityManager.persist(turn2);
         testEntityManager.flush();
     }
 
