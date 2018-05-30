@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class Turn {
 
     @Id
+    @Column(name = "id", columnDefinition = "VARCHAR(40)")
     private String id;
 
     @Column(name = "server_move", columnDefinition = "VARCHAR(10)")
