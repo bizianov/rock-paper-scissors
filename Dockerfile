@@ -4,7 +4,6 @@ RUN apt-get -y update && apt-get install -y maven
 
 WORKDIR /rock-paper-scissors
 
-ADD settings.xml /root/.m2/settings.xml
 ADD pom.xml /rock-paper-scissors
 ADD src /rock-paper-scissors/src
 

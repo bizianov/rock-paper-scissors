@@ -7,10 +7,8 @@ If you are using non-Window environment and have docker and docker-compose insta
 on your machine then:
 1. Clone the repository to your local machine.
 2. cd dir_where_you_cloned_repository.
-3. cp settings.xml file to the root of project to let docker download all the dependencies.
-This file is added to .gitignore, so it won't appear on github even if you make a commit.
-4. docker-compose build
-5. docker-compose up
+3. docker-compose build
+4. docker-compose up
 It will start 2 docker containers: one for mysql database with port 3306 exposed and
 java backend with port 8080 opened to FE/browser.
 
