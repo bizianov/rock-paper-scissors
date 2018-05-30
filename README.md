@@ -2,6 +2,7 @@
 Using this application you can play with a server as with normal opponent.
 
 **HOW TO START APPLICATION**
+
 If you are using non-Window environment and have docker and docker-compose installed
 on your machine then:
 1. Clone the repository to your local machine.
@@ -24,6 +25,7 @@ paper, rock, scissors. upper/lower case will be ignored and work fine for any co
 3. To stop the game and see the final score send GET request to /game/stop
 
 **SWAGGER integration**
+
 After application is launched you may use the following link to see available endpoint as well
 as expected params and possible response codes:
 http://localhost:8080/swagger-ui.html
